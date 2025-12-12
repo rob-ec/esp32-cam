@@ -25,6 +25,8 @@ Preferences preferences;
 
 #include "camera_pins.h"
 
+#include "defaults.h"
+
 #include "home_wifi_multi.h"
 
 OV2640 cam;
@@ -741,9 +743,12 @@ void setup(){
 	}
 
 	sensor_t * s = esp_camera_sensor_get();
+
 	
-	s->set_framesize(s, (framesize_t)preferences.getInt("framesize", s->status.framesize));
-	s->set_quality(s, 63 - preferences.getInt("quality", s->status.quality));
+	
+	s->set_framesize(s, (framesize_t)preferences.getInt("framesize", DEFAULT_FRAMESIZE));
+	s->set_quality(s, 63 - preferences.getInt("quality", DEFAULT_QUALITY));
+	
 	s->set_contrast(s, preferences.getInt("contrast", s->status.framesize));
 	s->set_brightness(s, preferences.getInt("brightness", s->status.brightness));
 	s->set_saturation(s, preferences.getInt("saturation", s->status.saturation));
